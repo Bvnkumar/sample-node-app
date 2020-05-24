@@ -13,3 +13,4 @@ EXPOSE 3000
 #CMD commonds will excute at the time of launch the creted docker image
 CMD ["npm","start"]
 #RUN commond will excute at the time of builing an image.
+#ENTRYPOINT also  will work same as CMD.

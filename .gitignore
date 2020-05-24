@@ -1,3 +1,6 @@
 node_modules/**
 node_modules\
 upload/**
+mysql-microservice/data
+mysql-microservice/Dump01.sql
+

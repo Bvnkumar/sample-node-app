@@ -22,7 +22,7 @@ mysql = require("mysql");
 pool = mysql.createPool({
   connectionLimit: 10,
   host: "localhost",
-  port: 3306,
+  port: 3309,
   user: "root",
   password: "test",
   database: "practical_db",
