@@ -1,12 +1,2 @@
-{"message":"helloworld","level":"error"}
-{"message":"User logged in successfully","level":"info"}
-{"message":"world","level":"error"}
-{"message":"User logged in successfully","level":"info"}
-{"message":"User logged in successfully","level":"info"}
-{"message":"User logged in successfully","level":"info"}
-{"message":"Invalid Credentials","level":"warn"}
-{"message":"Invalid Credentials","level":"warn"}
-{"message":"Invalid Credentials","level":"warn"}
-{"message":"User logged in successfully","level":"info"}
-{"message":"token verified [object Object]","level":"info"}
-{"message":"token verified {\"user_id\":1,\"iat\":1590289469}","level":"info"}
+{"message":"File writing is completed undefined","level":"info"}
+{"message":"File reading  is completed Hello Narendra How are you? How are you?","level":"info"}
