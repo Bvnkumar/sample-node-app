@@ -3,7 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "format": "prettier-standard app.* routes/**"
+  },
+  "lint-staged": {
+    "linters": {
+      "**/*.js": [
+        "prettier-standard",
+        "git add"
+      ]}
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -22,5 +30,10 @@
     "nodemon": "^2.0.4",
     "password-hash": "^1.2.2",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.7",
+    "prettier-standard": "^9.1.1"
   }
 }
