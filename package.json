@@ -8,8 +8,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "git add ."
-          }
+      "pre-commit": "prettier-standard app.* routes/**"
+    }
+  },
+  "lint-staged": {
+    "*.js": "prettier-standard"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
