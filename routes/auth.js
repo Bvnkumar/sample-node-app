@@ -1,9 +1,38 @@
 var express = require("express");
 var authrouter = express.Router();
+var db = require("../utils/mongodb");
 
-authrouter.get("/", function (req, res) {
-  res.send("in the auth response");
+const authCheck = (req, res, next) => {
+  console.log("in the auth check");
+  next();
+};
+/**
+ * This is middleware function excute whenever an request come to this route
+ */
+authrouter.use((req, res, next) => {
+  console.log("Time:", new Date());
+  next();
 });
+/**
+ * Sample route to get the data from mongodb
+ */
+authrouter.get("/getsample", authCheck, function (req, res) {
+  try {
+    db.get()
+      .db("mydb")
+      .collection("users")
+      .findOne({}, function (err, result) {
+        if (err) {
+          log.info("Getting error while accessing the data");
+        } else {
+          res.send(result);
+        }
+      });
+  } catch (error) {
+    console.log("error ", error);
+  }
+});
+
 /**
 @param object with reuired fileds for user creation
 @returns token

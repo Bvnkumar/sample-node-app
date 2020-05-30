@@ -1,24 +1,37 @@
 var createError = require("http-errors");
 var express = require("express");
-var path = require("path");
+path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 jwt = require("jsonwebtoken");
 bcrypt = require("password-hash");
 winston = require("winston");
+fs = require("fs");
+var multer = require("multer");
+mysql = require("mysql");
+
+//Log configuration
 log = winston.createLogger({
   transports: [
     new winston.transports.Console(),
     new winston.transports.File({ filename: "combined.log" }),
   ],
 });
-var multer  = require('multer')
- upload = multer({ dest: 'uploads/' })
+//setting file directory for file uploads
+upload = multer({ dest: "uploads/" });
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
-mysql = require("mysql");
+var db = require("./utils/mongodb");
+db.connect((err, result) => {
+  if (err) {
+    console.log("err ", err);
+  }
+  console.log("Db connected");
+});
+
+//Mysql connection
 pool = mysql.createPool({
   connectionLimit: 10,
   host: "localhost",
@@ -31,7 +44,8 @@ pool = mysql.createPool({
 pool.on("error", function (err) {
   console.log("[mysql error]", err);
 });
-var app = express();
+
+app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
