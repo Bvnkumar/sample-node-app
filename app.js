@@ -9,12 +9,16 @@ winston = require('winston')
 fs = require('fs')
 var multer = require('multer')
 mysql = require('mysql')
+var cors = require('cors')
 
 //Log configuration
 log = winston.createLogger({
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: 'combined.log' })
+    new winston.transports.File({
+      filename: 'combined.log',
+      options: { flags: 'w' }
+    })
   ]
 })
 //setting file directory for file uploads
@@ -35,7 +39,7 @@ db.connect((err, result) => {
 pool = mysql.createPool({
   connectionLimit: 10,
   host: 'localhost',
-  port: 3309,
+  port: 3306,
   user: 'root',
   password: 'test',
   database: 'practical_db'
@@ -46,6 +50,7 @@ pool.on('error', function (err) {
 })
 
 app = express()
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
