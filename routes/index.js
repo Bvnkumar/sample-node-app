@@ -1,14 +1,14 @@
 var express = require('express')
 var router = express.Router()
-var indexServices=require('../services/index')
+var indexServices = require('../services/index')
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express123' })
 })
 
 router.get('/getusers', function (req, res) {
-  indexServices.getUsers((err,result)=>{
-    if(err) res.status(400).send(err);
+  indexServices.getUsers((err, result) => {
+    if (err) res.status(400).send(err)
     res.status(200).send(result)
   })
 })

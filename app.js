@@ -15,7 +15,10 @@ var cors = require('cors')
 log = winston.createLogger({
   transports: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: 'combined.log', options: { flags: 'w' } })
+    new winston.transports.File({
+      filename: 'combined.log',
+      options: { flags: 'w' }
+    })
   ]
 })
 //setting file directory for file uploads
