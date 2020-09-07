@@ -98,7 +98,6 @@ authrouter.post('/tokenverify', function (req, res) {
   var decoded = jwt.verify(token, 'sample')
   if (decoded) {
     log.info('token verified ' + JSON.stringify(decoded))
-
     res.send(decoded)
   } else {
     log.error('Invalid token')
