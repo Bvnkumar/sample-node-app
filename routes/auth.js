@@ -16,18 +16,78 @@ authrouter.use((req, res, next) => {
 /**
  * Sample route to get the data from mongodb
  */
-authrouter.get('/getsample', authCheck, function (req, res) {
+authrouter.get('/getsample', authCheck, async function (req, res) {
   try {
-    db.get()
-      .db('mydb')
+    // db.get()
+    //   .db("mydb1")
+    //   .collection("users")
+    //   .findOne({}, function (err, result) {
+    //     if (err) {
+    //       log.info("Getting error while accessing the data");
+    //     } else {
+    //       res.send(result);
+    //     }
+    //   });
+    //   db.get()
+    //   .db("mydb1")
+    //   .collection("users")
+    //   .aggregate([
+    //     {
+    //       $lookup:
+    //         {
+    //           from: "Admins",
+    //           localField: "email",
+    //           foreignField: "email",
+    //           as: "result"
+    //         }
+    //    }]
+    //  , function (err, result) {
+    //     if (err) {
+    //       log.info("Getting error while accessing the data");
+    //     } else {
+    //       res.send(result);
+    //     }
+    //   });
+
+    //   db.users.aggregate([
+    //     {
+    //       $lookup:
+    //         {
+    //           from: "Admins",
+    //           localField: "email",
+    //           foreignField: "email",
+    //           as: "result"
+    //         }
+    //    }
+    //  ])
+    const docs = await db
+      .get()
+      .db('mydb1')
       .collection('users')
-      .findOne({}, function (err, result) {
-        if (err) {
-          log.info('Getting error while accessing the data')
-        } else {
-          res.send(result)
+      .aggregate([
+        {
+          $lookup: {
+            from: 'Admins',
+            localField: 'email',
+            foreignField: 'email',
+            as: 'stock'
+          }
+        },
+        {
+          $unwind: '$stock'
+        },
+        {
+          $project: {
+            _id: 0,
+            // ticker: '$stock.ticker',
+            // currentPrice: '$stock.currentPrice',
+            // basePrice: 1,
+            email: 1
+          }
         }
-      })
+      ])
+      .toArray()
+    res.send(docs)
   } catch (error) {
     console.log('error ', error)
   }
@@ -58,6 +118,19 @@ authrouter.post('/signup', function (req, res) {
 @param object with username and password
 @returns token
 */
+/**
+ *@swagger
+ * /login:
+ *   get:
+ *     tags:
+ *       - login
+ *     description:
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *          description: it sends jwt token
+ */
 authrouter.post('/login', function (req, res) {
   let email = req.body.email
   var sql = 'SELECT * FROM user WHERE email = ' + mysql.escape(email)
