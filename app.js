@@ -10,6 +10,7 @@ fs = require('fs')
 var multer = require('multer')
 mysql = require('mysql')
 var cors = require('cors')
+var swaggerJSDoc = require('swagger-jsdoc');
 
 //Log configuration
 log = winston.createLogger({
@@ -65,7 +66,32 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/auth', authRouter)
+// swagger definition
+var swaggerDefinition = {
+  info: {
+    title: 'Node Swagger API',
+    version: '1.0.0',
+    description: 'Demonstrating how to describe a RESTful API with Swagger',
+  },
+  host: 'localhost:3000',
+  basePath: '/',
+};
 
+// options for the swagger docs
+var options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['./routes/*.js'],
+};
+
+// initialize swagger-jsdoc
+var swaggerSpec = swaggerJSDoc(options);
+// serve swagger
+app.get('/swagger', function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404))
@@ -81,6 +107,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.render('error')
 })
+
 console.log('in the main log')
 
 module.exports = app
