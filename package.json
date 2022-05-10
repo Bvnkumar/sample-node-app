@@ -24,6 +24,7 @@
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
+    "kafkajs": "^2.0.0",
     "log4js": "^6.2.1",
     "mongodb": "^3.5.8",
     "morgan": "~1.9.1",
