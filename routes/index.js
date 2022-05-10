@@ -35,7 +35,7 @@ router.get('/fileread', function (req, res) {
       log.info('File writing is completed ' + writeResult)
       fs.readFile(pathname, 'utf8', function (err, result) {
         if (err) {
-          console.log('err ', err)
+          console.log('error ', err)
         } else {
           log.info('File reading  is completed ' + result)
           console.log('result ', result)

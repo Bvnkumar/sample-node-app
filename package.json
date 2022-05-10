@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "format": "prettier-standard app.* routes/**"
+    "format": "prettier-standard app.* **/*.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "prettier-standard app.* routes/**"
+      "pre-commit": "prettier-standard app.* **/*.js"
     }
   },
   "lint-staged": {
