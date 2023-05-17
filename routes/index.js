@@ -13,6 +13,7 @@ router.get('/getusers', function (req, res) {
   })
 })
 router.post('/post/kafka/message', async function (req, res) {
+  console.log('in the post')
   await producer.connect()
   payloads = {
     topic: 'test',
@@ -20,6 +21,18 @@ router.post('/post/kafka/message', async function (req, res) {
   }
   producer.send(payloads)
   res.status(200).send('A message has been inserted')
+})
+
+router.get('/post/kafka', async function (req, res) {
+  await consumer.connect()
+  await consumer.subscribe({ topic: 'test', fromBeginning: true })
+  await consumer.run({
+    eachMessage: async ({ topic, partition, message }) => {
+      console.log({
+        value: message.value.toString()
+      })
+    }
+  })
 })
 
 /**

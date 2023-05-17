@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "format": "prettier-standard app.* **/*.js"
+    "format": "prettier-standard app.* **/*.js",
+    "test": "jest --coverage"
   },
   "husky": {
     "hooks": {
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "husky": "^4.2.5",
+    "jest": "^29.4.3",
     "lint-staged": "^10.2.7",
     "prettier-standard": "^9.1.1"
   }

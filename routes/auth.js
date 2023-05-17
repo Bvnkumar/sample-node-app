@@ -7,11 +7,31 @@ const authCheck = (req, res, next) => {
   next()
 }
 /**
- * This is middleware function excute whenever an request come to this route
+ * This is a middleware function which execute whenever an request comes into this route
  */
 authrouter.use((req, res, next) => {
   console.log('Time:', new Date())
   next()
+})
+
+authrouter.get('/getUsers', async function (req, res) {
+  try {
+    console.log('db ', db)
+    // db.get().db("mydb1").collection("users").find();
+    db.get()
+      .db('mydb1')
+      .collection('users')
+      .find({}, { projection: { _id: 0 } })
+      .toArray(function (err, result) {
+        if (err) throw err
+        console.log('result ', result)
+        res.send(result)
+        db.close()
+      })
+  } catch (error) {
+    console.log('error ', error)
+    res.status(500).send('Error occured')
+  }
 })
 /**
  * Sample route to get the data from mongodb

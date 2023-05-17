@@ -5,4 +5,5 @@ mysql-microservice/data
 mysql-microservice/Dump01.sql
 combined.log
 public/files/sample.txt
+coverage/**
 

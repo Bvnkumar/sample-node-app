@@ -18,6 +18,7 @@ const client = new Kafka({
   clientId: 'sample-kafka-client'
 })
 producer = client.producer()
+consumer = client.consumer({ groupId: 'test-group' })
 //Log configuration
 log = winston.createLogger({
   transports: [
@@ -34,12 +35,19 @@ upload = multer({ dest: 'uploads/' })
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var authRouter = require('./routes/auth')
-var db = require('./utils/mongodb')
-db.connect((err, result) => {
-  if (err) {
-    console.log('err ', err)
-  }
+const mongoUtil = require('./utils/mongodb')
+//mongoConnection;
+mongoUtil.connect(err => {
+  // console.log("connection ", connection);
+  // mongoConnection = connection;
   console.log('Db connected')
+  //const database = connection.db("mydb1");
+  const connection = mongoUtil.getDB()
+  //console.log("connection ", connection);
+  const collection = connection.collection('users')
+  collection.find({}).toArray((err, results) => {
+    console.log('results ', results)
+  })
 })
 
 //Mysql connection
@@ -116,4 +124,5 @@ app.use(function (err, req, res, next) {
 
 console.log('in the main log')
 
-module.exports = app
+module.exports.app = app
+module.exports.pool = pool
