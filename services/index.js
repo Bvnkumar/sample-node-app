@@ -1,9 +1,10 @@
 const mongoUtil = require('../utils/mongodb')
 exports.getUser = callback => {
-  pool.query('SELECT * from  emp', function (error, results, fields) {
-    if (error) callback(error)
-    log.info('Result ', results)
-    callback(null, 'test')
+  console.log('in the index users service')
+  pool.query('SELECT * from users', function (error, results, fields) {
+    if (error) callback(error, null)
+    console.log('error ', error)
+    callback(null, results)
   })
 }
 

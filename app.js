@@ -40,13 +40,13 @@ const mongoUtil = require('./utils/mongodb')
 mongoUtil.connect(err => {
   // console.log("connection ", connection);
   // mongoConnection = connection;
-  console.log('Db connected')
+  console.log('Mongo Db connected')
   //const database = connection.db("mydb1");
   const connection = mongoUtil.getDB()
   //console.log("connection ", connection);
   const collection = connection.collection('users')
   collection.find({}).toArray((err, results) => {
-    console.log('results ', results)
+    //console.log("results ", results);
   })
 })
 
@@ -56,8 +56,8 @@ pool = mysql.createPool({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: 'test',
-  database: 'practical_db'
+  password: 'root',
+  database: 'flipkart'
 })
 
 pool.on('error', function (err) {
